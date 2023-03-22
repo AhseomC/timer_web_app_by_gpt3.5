@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timer App</title>
+    <link rel="stylesheet" href="chatgpttimerapp.css">
+    <style>
+  
+    <style>
+      body {
+        background-color: #f8f8f8;
+        font-family: sans-serif;
+      }
+      
+      h1 {
+        color: magenta;
+        text-align: center;
+      }
+      
+      #timer-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+      }
+      
+      #display {
+        display: block;
+        font-size: 4rem;
+        color: magenta;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      
+      button {
+        background-color: magenta;
+        color: white;
+        font-size: 1.5rem;
+        border-radius: 1rem;
+        padding: 1rem 3rem;
+        margin: 1rem;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        display: block;
+        width: 9rem;
+        height: 6rem;
+      }
+      
+      button:hover {
+        transform: translateY(-0.25rem);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+      }
+    </style>
+</head>
+<body>
+	<h1>Timer App</h1>
+	<div id="timer-container">
+		<span id="display">00:00:00</span>
+		<button id="start">Start</button>
+		<button id="stop">Stop</button>
+		<button id="reset">Reset</button>
+	</div>
+	
+	<script>
+		var startTime;
+		var elapsedTime = 0;
+		var timerInterval;
+
+		function startTimer() {
+			startTime = Date.now() - elapsedTime;
+			timerInterval = setInterval(updateTimer, 1000);
+		}
+
+		function stopTimer() {
+			clearInterval(timerInterval);
+			elapsedTime = Date.now() - startTime;
+		}
+
+		function resetTimer() {
+			clearInterval(timerInterval);
+			elapsedTime = 0;
+			document.getElementById('display').textContent = '00:00:00';
+		}
+
+		function updateTimer() {
+			elapsedTime = Date.now() - startTime;
+			var hours = Math.floor(elapsedTime / 3600000);
+			var minutes = Math.floor((elapsedTime % 3600000) / 60000);
+			var seconds = Math.floor((elapsedTime % 60000) / 1000);
+			var displayString = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+			document.getElementById('display').textContent = displayString;
+		}
+
+		document.getElementById('start').addEventListener('click', startTimer);
+		document.getElementById('stop').addEventListener('click', stopTimer);
+		document.getElementById('reset').addEventListener('click', resetTimer);
+	</script>
+</body>
+</html>
